@@ -10,10 +10,11 @@ use App\Ticket;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\View\View;
 
-class TicketController extends Controller
+class ActivityController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -44,8 +45,25 @@ class TicketController extends Controller
      */
     public function store(Request $request)
     {
-        $ticket = Ticket::create($request->all());
-        return Redirect::route('tickets.index');
+        $storeTicket = Ticket::find($request->get('ticket_id'));
+        if($storeTicket->state == $request->get('state')) {
+            $activity = Activity::create([
+               'user_id' => Auth::user()->id,
+               'ticket_id' => $request->get('ticket_id'),
+               'content' => $request->get('content')
+            ]);
+        } else {
+            $activity = Activity::create([
+                'user_id' => Auth::user()->id,
+                'ticket_id' => $request->get('ticket_id'),
+                'content' => $request->get('content'),
+                'status' => $request->get('state')
+            ]);
+            $storeTicket->state = $request->get('state');
+            $storeTicket->save();
+        }
+
+        return Redirect::route('tickets.show', $storeTicket->id);
     }
 
     /**
@@ -57,8 +75,7 @@ class TicketController extends Controller
     public function show($id)
     {
         $ticket = Ticket::find($id);
-        $activities = Activity::where('ticket_id', $ticket->id)->get();
-        return view('tickets.show', compact('ticket', 'activities'));
+        return view('tickets.show', compact('ticket'));
     }
 
     /**

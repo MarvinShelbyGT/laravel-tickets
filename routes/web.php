@@ -24,4 +24,7 @@ Route::group(['prefix' => 'tickets', 'middleware' => ['auth']], function() {
     Route::get('/index', 'TicketController@index')->name('tickets.index');
     Route::delete('/destroy/{id}', 'TicketController@destroy')->name('tickets.destroy');
     Route::get('/{id}', 'TicketController@show')->name('tickets.show');
+    Route::group(['prefix' => 'activities', 'middleware' => ['auth']], function() {
+        Route::post('/store', 'ActivityController@store')->name('activities.store');
+    });
 });

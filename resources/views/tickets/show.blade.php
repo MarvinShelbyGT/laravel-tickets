@@ -52,42 +52,63 @@
                     </div>
                     <div class="row">
                         <div class="col-12">
-                            <h4>Activité récente</h4>
-                            <div class="post">
-                                <div class="user-block">
-                                    <span>
-                                        <a href="#">Jonathan Burke Jr.</a>
-                                    </span> <br>
-                                    <span>Shared publicly - 7:45 PM today</span>
-                                </div>
-                                <!-- /.user-block -->
-                                <p>
-                                    Lorem ipsum represents a long-held tradition for designers,
-                                    typographers and the like. Some people hate it and argue for
-                                    its demise, but others ignore.
-                                </p>
+                            <h4>@if($activities->count() > 1) Commentaires @else Commentaire @endif</h4>
 
-                                <p>
-                                    <a href="#" class="link-black text-sm"><i class="fas fa-link mr-1"></i> Demo File 1 v2</a>
-                                </p>
-                            </div>
-                            <div class="post">
-                                <div class="user-block">
+                            @foreach($activities as $activity)
+                                <div class="post">
+                                    <div class="user-block">
                                     <span>
-                                        <a href="#">Jonathan Burke Jr.</a>
+                                        <a href="#">{{ \App\User::find($activity->user_id)->name }}</a>
                                     </span> <br>
-                                    <span>Shared publicly - 7:45 PM today</span>
-                                </div>
-                                <!-- /.user-block -->
-                                <p>
-                                    Lorem ipsum represents a long-held tradition for designers,
-                                    typographers and the like. Some people hate it and argue for
-                                    its demise, but others ignore.
-                                </p>
+                                        <small>Ajouter le {{ Jenssegers\Date\Date::parse($activity->created_at)->format('d/m/Y')  }}</small>
+                                    </div>
+                                    <!-- /.user-block -->
+                                    <p>
 
-                                <p>
-                                    <a href="#" class="link-black text-sm"><i class="fas fa-link mr-1"></i> Demo File 1 v2</a>
-                                </p>
+                                        @if($activity->status != null)
+                                            <button class="btn btn-danger btn-sm" style="cursor: default">{{$activity->status}}</button>
+                                        @endif
+                                        {!! $activity->content !!}
+                                    </p>
+
+                                    @if($activity->filename != null) {
+                                    <p>
+                                        <a href="#" class="link-black text-sm"><i class="fas fa-link mr-1"></i> Demo File 1 v2</a>
+                                    </p>
+                                    @endif
+                                </div>
+                            @endforeach
+
+                            <div class="post">
+                                <form action="{{ route("activities.store") }}" method="POST" enctype="multipart/form-data">
+                                    @csrf
+                                    <input type="hidden" name="ticket_id" value="{{ $ticket->id }}">
+                                    <div class="form-group row">
+                                        <label for="content" class="col-sm-2 col-form-label">{{ trans('Message') }}</label>
+                                        <div class="col-sm-10">
+                                            <textarea id="summernote" name="content" class="form-control" required></textarea>
+                                            <p class="helper-block">
+                                                <small>{{ trans('Merci de décrire le plus précisément le problème') }}</small>
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label for="state" class="col-sm-2 col-form-label">{{ trans('Status') }}</label>
+                                        <div class="col-sm-10">
+                                            <select name="state" id="state" class="form-control" required>
+                                                <option value="New" {{ $ticket->state == "New" ? "selected" : '' }} >Nouveau</option>
+                                                <option value="Closed" {{ $ticket->state == "Closed" ? "selected" : '' }}>Clôturer</option>
+                                                <option value="Re-Opened" {{ $ticket->state == "Re-Opened" ? "selected" : '' }}>Ré-Ouvert</option>
+                                                <option value="Pending" {{ $ticket->state == "Pending" ? "selected" : '' }}>En cours</option>
+                                                <option value="Solved" {{ $ticket->state == "Solved" ? "selected" : '' }}>Résolu</option>
+                                                <option value="Bug" {{ $ticket->state == "Bug" ? "selected" : '' }}>Bug</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <input class="btn btn-success float-right" type="submit" value="{{ trans('Ajouter le commentaire') }}">
+                                    </div>
+                                </form>
                             </div>
                         </div>
                     </div>
