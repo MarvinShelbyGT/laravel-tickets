@@ -93,7 +93,7 @@
                     </li>
                 @endcan
                 <li class="nav-item">
-                    <a href="{{ route("tickets.create") }}" class="nav-link {{ request()->is('admin/tickets') || request()->is('admin/tickets/*') ? 'active' : '' }}">
+                    <a href="{{ route("tickets.index") }}" class="nav-link {{ request()->is('admin/tickets') || request()->is('admin/tickets/*') ? 'active' : '' }}">
                         <i class="fas fa-cogs">
 
                         </i>

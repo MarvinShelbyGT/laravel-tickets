@@ -21,4 +21,7 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'mi
 Route::group(['prefix' => 'tickets', 'middleware' => ['auth']], function() {
     Route::get('/create', 'TicketController@create')->name('tickets.create');
     Route::post('/store', 'TicketController@store')->name('tickets.store');
+    Route::get('/index', 'TicketController@index')->name('tickets.index');
+    Route::delete('/destroy/{id}', 'TicketController@destroy')->name('tickets.destroy');
+    Route::get('/{id}', 'TicketController@show')->name('tickets.show');
 });
