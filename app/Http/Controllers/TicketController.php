@@ -22,6 +22,7 @@ class TicketController extends Controller
      */
     public function index()
     {
+        abort_unless(\Gate::allows('tickets_index'), 403);
         $tickets = Ticket::all();
         return view('tickets.index', compact('tickets'));
     }
@@ -33,6 +34,7 @@ class TicketController extends Controller
      */
     public function create()
     {
+        abort_unless(\Gate::allows('tickets_create'), 403);
         return view('tickets.create');
     }
 
@@ -56,6 +58,7 @@ class TicketController extends Controller
      */
     public function show($id)
     {
+        abort_unless(\Gate::allows('tickets_show'), 403);
         //Récupération des fichiers
         $ticket = Ticket::find($id);
         $files = Activity::where('ticket_id', $ticket->id)->where('filename', '!=', null)->get();
@@ -94,6 +97,7 @@ class TicketController extends Controller
      */
     public function destroy($id)
     {
+        abort_unless(\Gate::allows('tickets_delete'), 403);
         $ticket = Ticket::find($id);
         $ticket->delete();
         return Redirect::route('tickets.index');

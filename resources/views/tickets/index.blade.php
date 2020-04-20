@@ -46,7 +46,7 @@
                                 {{ $ticket->id }}
                             </td>
                             <td>
-                                <a href="#">
+                                <a href="{{ route('tickets.show', $ticket->id) }}">
                                     {{ $ticket->subject }}
                                 </a>
                             </td>
@@ -69,7 +69,7 @@
                             </td>
                             <td>
                                 <?php \Jenssegers\Date\Date::setLocale('fr') ?>
-                                {{ Jenssegers\Date\Date::now()->diffForHumans($ticket->updated_at) }}
+                                Il y a {{ str_replace('après', '', Jenssegers\Date\Date::now()->diffForHumans($ticket->updated_at)) }}
                             </td>
                             <td>
                                 {{ $ticket->priority }}

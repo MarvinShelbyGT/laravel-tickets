@@ -36,7 +36,7 @@
 
                             </i>
                             <p>
-                                <span>{{ trans('global.userManagement.title') }}</span>
+                                <span>{{ trans('Gestion des utilisateurs') }}</span>
                                 <i class="right fa fa-angle-left"></i>
                             </p>
                         </a>
@@ -48,7 +48,7 @@
 
                                         </i>
                                         <p>
-                                            <span>{{ trans('global.permission.title') }}</span>
+                                            <span>{{ trans('Les permissions') }}</span>
                                         </p>
                                     </a>
                                 </li>
@@ -60,7 +60,7 @@
 
                                         </i>
                                         <p>
-                                            <span>{{ trans('global.role.title') }}</span>
+                                            <span>{{ trans('Les rôles') }}</span>
                                         </p>
                                     </a>
                                 </li>
@@ -72,24 +72,12 @@
 
                                         </i>
                                         <p>
-                                            <span>{{ trans('global.user.title') }}</span>
+                                            <span>{{ trans('Les utilisateurs') }}</span>
                                         </p>
                                     </a>
                                 </li>
                             @endcan
                         </ul>
-                    </li>
-                @endcan
-                @can('product_access')
-                    <li class="nav-item">
-                        <a href="{{ route("admin.products.index") }}" class="nav-link {{ request()->is('admin/products') || request()->is('admin/products/*') ? 'active' : '' }}">
-                            <i class="fas fa-cogs">
-
-                            </i>
-                            <p>
-                                <span>{{ trans('global.product.title') }}</span>
-                            </p>
-                        </a>
                     </li>
                 @endcan
                 <li class="nav-item">
