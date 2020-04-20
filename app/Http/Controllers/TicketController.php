@@ -56,9 +56,12 @@ class TicketController extends Controller
      */
     public function show($id)
     {
+        //Récupération des fichiers
         $ticket = Ticket::find($id);
+        $files = Activity::where('ticket_id', $ticket->id)->where('filename', '!=', null)->get();
         $activities = Activity::where('ticket_id', $ticket->id)->get();
-        return view('tickets.show', compact('ticket', 'activities'));
+
+        return view('tickets.show', compact('ticket', 'activities', 'files'));
     }
 
     /**

@@ -12,6 +12,7 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\View\View;
 
 class ActivityController extends Controller
@@ -63,6 +64,17 @@ class ActivityController extends Controller
             $storeTicket->save();
         }
 
+        $uploadedFile = $request->file('fichier');
+
+        if($uploadedFile != null) {
+            $filename = time().'_'.$uploadedFile->getClientOriginalName();
+
+            $request->fichier->storeAs('public/files', $filename);
+
+            $activity->filename = $filename;
+            $activity->save();
+        }
+
         return Redirect::route('tickets.show', $storeTicket->id);
     }
 
@@ -74,7 +86,10 @@ class ActivityController extends Controller
      */
     public function show($id)
     {
+        //Récupération des fichiers
         $ticket = Ticket::find($id);
+        $files = Activity::where('ticket_id', $ticket->id)->where('filename', '!=', null)->get();
+
         return view('tickets.show', compact('ticket'));
     }
 
@@ -112,4 +127,10 @@ class ActivityController extends Controller
         $ticket->delete();
         return Redirect::route('tickets.index');
     }
+
+    public function download($filename) {
+        $explode = explode('.', $filename);
+        return response()->download(public_path('storage/files/'.$filename), 'download.'.$explode[1]);
+    }
+
 }

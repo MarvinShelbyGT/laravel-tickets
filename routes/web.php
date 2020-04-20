@@ -26,5 +26,6 @@ Route::group(['prefix' => 'tickets', 'middleware' => ['auth']], function() {
     Route::get('/{id}', 'TicketController@show')->name('tickets.show');
     Route::group(['prefix' => 'activities', 'middleware' => ['auth']], function() {
         Route::post('/store', 'ActivityController@store')->name('activities.store');
+        Route::get('/download/{filename}', 'ActivityController@download')->name('activities.download');
     });
 });

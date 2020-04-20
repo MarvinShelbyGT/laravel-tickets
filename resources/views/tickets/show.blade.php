@@ -4,7 +4,7 @@
     <div class="card">
         <div class="card-header">
             <?php \Jenssegers\Date\Date::setLocale('fr') ?>
-            <h3 class="card-title">Détails du ticket | {{ Jenssegers\Date\Date::now()->diffForHumans($ticket->updated_at) }}</h3>
+            <h3 class="card-title">Détails du ticket | Il y a {{ str_replace('après', '', Jenssegers\Date\Date::now()->diffForHumans($ticket->created_at)) }}</h3>
 
             <div class="card-tools">
                 <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" title="Collapse">
@@ -60,20 +60,18 @@
                                     <span>
                                         <a href="#">{{ \App\User::find($activity->user_id)->name }}</a>
                                     </span> <br>
-                                        <small>Ajouter le {{ Jenssegers\Date\Date::parse($activity->created_at)->format('d/m/Y')  }}</small>
+                                        <small>Il y a {{ str_replace('après', '', Jenssegers\Date\Date::now()->diffForHumans($activity->created_at)) }}</small>
                                     </div>
                                     <!-- /.user-block -->
                                     <p>
-
                                         @if($activity->status != null)
                                             <button class="btn btn-danger btn-sm" style="cursor: default">{{$activity->status}}</button>
                                         @endif
                                         {!! $activity->content !!}
                                     </p>
-
-                                    @if($activity->filename != null) {
+                                    @if($activity->filename != null)
                                     <p>
-                                        <a href="#" class="link-black text-sm"><i class="fas fa-link mr-1"></i> Demo File 1 v2</a>
+                                        <a href="{{ route('activities.download', $activity->filename) }}" class="link-black text-sm"><i class="fas fa-link mr-1"></i> {{ $activity->filename }}</a>
                                     </p>
                                     @endif
                                 </div>
@@ -105,6 +103,12 @@
                                             </select>
                                         </div>
                                     </div>
+                                    <div class="form-group row">
+                                        <label for="fichier" class="col-sm-2 col-form-label">{{ trans('Fichier') }}</label>
+                                        <div class="col-sm-10">
+                                            <input type="file" class="form-control-file" id="fichier" name="fichier">
+                                        </div>
+                                    </div>
                                     <div>
                                         <input class="btn btn-success float-right" type="submit" value="{{ trans('Ajouter le commentaire') }}">
                                     </div>
@@ -118,31 +122,61 @@
                     <p class="text-muted">{!! $ticket->content !!} </p>
                     <br>
                     <div class="text-muted">
-                        <p class="text-sm">Propriétaire
-                            <b class="d-block">&nbsp;</b>
+                        <p class="text-sm">État du ticket
+                            @if($ticket->state == "New")
+                                <b class="d-block" style="color:green">Nouveau</b>
+                            @elseif($ticket->state == "Closed")
+                                <b class="d-block" style="color: #186107">Fermé</b>
+                            @elseif($ticket->state == "Re-Opened")
+                                <b class="d-block" style="color: #71001f">Re-Ouvert</b>
+                            @elseif($ticket->state == "Pending")
+                                <b class="d-block" style="color:orange">En cours</b>
+                            @elseif($ticket->state == "Solved")
+                                <b class="d-block" style="color:lawngreen">Résolu</b>
+                            @elseif($ticket->state == "Bug")
+                                <b class="d-block" style="color:red">Bug</b>
+                            @endif
                         </p>
                         <p class="text-sm">Responsable
                             <b class="d-block">Dahlen Marvin</b>
+                        </p>
+                        <p class="text-sm">Dernière mise à jour
+                            <b class="d-block">Il y a {{ str_replace('après', '', Jenssegers\Date\Date::now()->diffForHumans($ticket->updated_at)) }}</b>
                         </p>
                     </div>
 
                     <h5 class="mt-5 text-muted">Les fichiers</h5>
                     <ul class="list-unstyled">
-                        <li>
-                            <a href="" class="btn-link text-secondary"><i class="far fa-fw fa-file-word"></i> Functional-requirements.docx</a>
-                        </li>
-                        <li>
-                            <a href="" class="btn-link text-secondary"><i class="far fa-fw fa-file-pdf"></i> UAT.pdf</a>
-                        </li>
-                        <li>
-                            <a href="" class="btn-link text-secondary"><i class="far fa-fw fa-envelope"></i> Email-from-flatbal.mln</a>
-                        </li>
-                        <li>
-                            <a href="" class="btn-link text-secondary"><i class="far fa-fw fa-image "></i> Logo.png</a>
-                        </li>
-                        <li>
-                            <a href="" class="btn-link text-secondary"><i class="far fa-fw fa-file-word"></i> Contract-10_12_2014.docx</a>
-                        </li>
+                        @foreach($files as $file)
+                            @php
+                                $extension = explode('.',$file->filename);
+                            @endphp
+                            @if($extension[1] == "docx" || $extension[1] == "doc")
+                                <li>
+                                    <a href="{{ route('activities.download', $file->filename) }}" class="btn-link text-secondary"><i class="far fa-fw fa-file-word"></i> {{ $file->filename }}</a>
+                                </li>
+                            @elseif($extension[1] == "pdf")
+                                <li>
+                                    <a href="{{ route('activities.download', $file->filename) }}" class="btn-link text-secondary"><i class="far fa-fw fa-file-pdf"></i> {{ $file->filename }}</a>
+                                </li>
+                            @elseif($extension[1] == "mln")
+                                <li>
+                                    <a href="{{ route('activities.download', $file->filename) }}" class="btn-link text-secondary"><i class="far fa-fw fa-envelope"></i> {{ $file->filename }}</a>
+                                </li>
+                            @elseif($extension[1] == "png")
+                                <li>
+                                    <a href="{{ route('activities.download', $file->filename) }}" class="btn-link text-secondary"><i class="far fa-fw fa-image "></i> {{ $file->filename }}</a>
+                                </li>
+                            @elseif($extension[1] == "xlsx" || $extension[1] == "xls")
+                                <li>
+                                    <a href="{{ route('activities.download', $file->filename) }}" class="btn-link text-secondary"><i class="far fa-fw fa-file-excel "></i> {{ $file->filename }}</a>
+                                </li>
+                            @else
+                                <li>
+                                    <a href="{{ route('activities.download', $file->filename) }}" class="btn-link text-secondary"><i class="far fa-fw fa-image "></i> {{ $file->filename }}</a>
+                                </li>
+                            @endif
+                        @endforeach
                     </ul>
                     <div class="mt-5 mb-3">
                         <a href="#" class="btn btn-sm btn-primary">Ajouter un fichier</a>
