@@ -19,11 +19,11 @@ __En cours pas encore terminé__
 
 ## Screenshots
 
-![screenshot 01 | Créer un ticket](https://zupimages.net/viewer.php?id=20/17/ahcu.png)
+![screenshot 01 | Créer un ticket](https://user-images.githubusercontent.com/6048961/79837889-6e874e80-83b2-11ea-82bc-13c8b6d37e14.PNG)
 
-![screenshot 02 | Affichage des tickets](https://zupimages.net/viewer.php?id=20/17/87tm.png)
+![screenshot 02 | Affichage des tickets](https://user-images.githubusercontent.com/6048961/79837892-6f1fe500-83b2-11ea-8dc8-a21717547184.PNG)
 
-![screenshot 02 | Affichage d'un ticket](https://zupimages.net/viewer.php?id=20/17/vd6f.png)
+![screenshot 02 | Affichage d'un ticket](https://user-images.githubusercontent.com/6048961/79837894-6fb87b80-83b2-11ea-8b20-726ea5d9a1db.PNG)
 
 ## Utilisation
 
