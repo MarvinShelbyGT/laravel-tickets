@@ -105,31 +105,31 @@ class PermissionsTableSeeder extends Seeder
             ],
             [
                 'id'         => '17',
-                'title'      => 'product_create',
+                'title'      => 'tickets_create',
                 'created_at' => '2019-04-15 19:14:42',
                 'updated_at' => '2019-04-15 19:14:42',
             ],
             [
                 'id'         => '18',
-                'title'      => 'product_edit',
+                'title'      => 'tickets_edit',
                 'created_at' => '2019-04-15 19:14:42',
                 'updated_at' => '2019-04-15 19:14:42',
             ],
             [
                 'id'         => '19',
-                'title'      => 'product_show',
+                'title'      => 'tickets_show',
                 'created_at' => '2019-04-15 19:14:42',
                 'updated_at' => '2019-04-15 19:14:42',
             ],
             [
                 'id'         => '20',
-                'title'      => 'product_delete',
+                'title'      => 'tickets_delete',
                 'created_at' => '2019-04-15 19:14:42',
                 'updated_at' => '2019-04-15 19:14:42',
             ],
             [
                 'id'         => '21',
-                'title'      => 'product_access',
+                'title'      => 'tickets_index',
                 'created_at' => '2019-04-15 19:14:42',
                 'updated_at' => '2019-04-15 19:14:42',
             ]];
