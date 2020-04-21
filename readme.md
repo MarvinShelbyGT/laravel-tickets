@@ -26,7 +26,7 @@ Il y a donc des paramètres qui sont très précis à mon utilisation.
 
 ## A faire
 
-- [ ] Système d'assignation par ticket. Dans le cas ou le ticket est ouvert par un magasin par exemple.
+- [ ] Système d'assignement par ticket. Dans le cas ou le ticket est ouvert par un magasin par exemple.
 - [ ] Ouverture d'un ticket par email
 
 ## Utilisation
