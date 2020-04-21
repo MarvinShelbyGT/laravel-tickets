@@ -1,47 +1,30 @@
-# Laravel+AdminLTE3: Adminpanel Boilerplate
+# Système gestion des tickets
 
-It is a demo project for demonstrating what can be generated with new 2019 version of [QuickAdminPanel](https://2019.quickadminpanel.com) tool. This boilerplate was fully __generated__, without adding any custom line of code.
+Le but de ce projet est de mettre en place un système de ticket permettant la résolution des problèmes.
+Ce projet est paramétrer dans le but de régler les problèmes de l'entreprise dans laquelle je me trouve. 
+Il y a donc des paramètres qui sont très précis à mon utilisation.
 
-## What's inside
+## Installation
 
-- Adminpanel with default one admin user (_admin@admin.com/password_) and two roles
-- Users/Roles/permissions management function (based on our own code similar to Spatie Roles-Permissions)
-- One demo CRUD for Products management - name/description/price
-- Everything that is needed for CRUDs: model+migration+controller+requests+views
-
-From that boilerplate you can manually create more CRUDs, assign permissions etc. Or use our [online generator](https://2019.quickadminpanel.com) for this.
-
-__Notice__: AdminLTE 3 version was not released officially. At the time of writing (April 2019), the latest was [v3.0.0-Alpha 2 release in May 2018](https://github.com/ColorlibHQ/AdminLTE/releases/tag/v3.0.0-alpha.2). But, at current alpha state, the theme is good enough to use for simple CRUDs like ours.
-
-## Screenshots
-
-![Laravel + AdminLTE3 screenshot 01](https://laraveldaily.com/wp-content/uploads/2019/04/Screen-Shot-2019-04-16-at-11.25.35-AM.png)
-
-![Laravel + AdminLTE3 screenshot 02](https://laraveldaily.com/wp-content/uploads/2019/04/Screen-Shot-2019-04-16-at-10.26.32-AM.png)
-
-![Laravel + AdminLTE3 screenshot 03](https://laraveldaily.com/wp-content/uploads/2019/04/Screen-Shot-2019-04-16-at-10.26.16-AM.png)
-
-![Laravel + AdminLTE3 screenshot 04](https://laraveldaily.com/wp-content/uploads/2019/04/Screen-Shot-2019-04-16-at-10.27.20-AM.png)
-
-## How to use
+__En cours pas encore terminé__
 
 - Clone the repository with __git clone__
 - Copy __.env.example__ file to __.env__ and edit database credentials there
 - Run __composer install__
 - Run __php artisan key:generate__
 - Run __php artisan migrate --seed__ (it has some seeded data for your testing)
+    - Il faut refaire les seeds pour les emplacements, etc...
 - That's it: launch the main URL or go to __/login__ and login with default credentials __admin@admin.com__ - __password__
 
-## License
 
-Basically, feel free to use and re-use any way you want.
+## Screenshots
 
----
+![screenshot 01 | Créer un ticket](https://zupimages.net/viewer.php?id=20/17/ahcu.png)
 
-## More from our LaravelDaily Team
+![screenshot 02 | Affichage des tickets](https://zupimages.net/viewer.php?id=20/17/87tm.png)
 
-- Check out our adminpanel generator [QuickAdminPanel](https://quickadminpanel.com)
-- Read our [Blog with Laravel Tutorials](https://laraveldaily.com)
-- FREE E-book: [50 Laravel Quick Tips (and counting)](https://laraveldaily.com/free-e-book-40-laravel-quick-tips-and-counting/)
-- Subscribe to our [YouTube channel Laravel Business](https://www.youtube.com/channel/UCTuplgOBi6tJIlesIboymGA)
-- Enroll in our [Laravel Online Courses](https://laraveldaily.teachable.com/)
+![screenshot 02 | Affichage d'un ticket](https://zupimages.net/viewer.php?id=20/17/vd6f.png)
+
+## Utilisation
+
+Utilisation d'[AdminLTE3](https://adminlte.io/) avec le boilerplate [LaravelDaily](https://github.com/LaravelDaily/Laravel-AdminLTE3-Boilerplate)
