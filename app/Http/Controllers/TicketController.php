@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Activity;
 use App\Http\Requests\StorePermissionRequest;
 use App\Http\Requests\UpdatePermissionRequest;
+use App\Location;
 use App\Permission;
 use App\Ticket;
 use Illuminate\Contracts\View\Factory;
@@ -35,7 +36,8 @@ class TicketController extends Controller
     public function create()
     {
         abort_unless(\Gate::allows('tickets_create'), 403);
-        return view('tickets.create');
+        $locations = Location::all();
+        return view('tickets.create', compact('locations'));
     }
 
     /**

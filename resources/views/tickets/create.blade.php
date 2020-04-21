@@ -55,13 +55,10 @@
                     <label for="place" class="col-sm-2 col-form-label">{{ trans('Emplacement') }}</label>
                     <div class="col-sm-10">
                         <select name="place" id="place" class="form-control" required>
-                            <option value="gace">Gacé</option>
-                            <option value="chateauRenard">Château-Renard</option>
-                            <option value="magasins" selected>Magasins</option>
+                            @foreach($locations as $location)
+                                <option value="{{ $location->id }}">{{ $location->name }}</option>
+                            @endforeach
                         </select>
-                        <p class="helper-block">
-                            <small>{{ trans('Magasins : Merci de saisir le nom du magasin dans la description') }}</small>
-                        </p>
                     </div>
                 </div>
                 <div>
