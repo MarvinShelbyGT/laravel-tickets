@@ -1,10 +1,20 @@
 <?php
 
+use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Session;
+
 Route::redirect('/', '/login');
 
 Route::redirect('/home', '/admin');
 
 Auth::routes(['register' => false]);
+
+Route::get('/{locale}', function ($locale) {
+    App::setLocale($locale);
+    Session::put('locale', $locale);
+    return view('home');
+});
 
 Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'middleware' => ['auth']], function () {
     Route::get('/', 'HomeController@index')->name('home');
@@ -19,6 +29,7 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'mi
 });
 
 Route::group(['prefix' => 'tickets', 'middleware' => ['auth']], function() {
+    App::setLocale('fr');
     Route::get('/create', 'TicketController@create')->name('tickets.create');
     Route::post('/store', 'TicketController@store')->name('tickets.store');
     Route::get('/index', 'TicketController@index')->name('tickets.index');
@@ -27,5 +38,13 @@ Route::group(['prefix' => 'tickets', 'middleware' => ['auth']], function() {
     Route::group(['prefix' => 'activities', 'middleware' => ['auth']], function() {
         Route::post('/store', 'ActivityController@store')->name('activities.store');
         Route::get('/download/{filename}', 'ActivityController@download')->name('activities.download');
+    });
+    Route::group(['prefix' => 'locations', 'middleware' => ['auth']], function() {
+        Route::get('/index', 'locationController@index')->name('locations.index');
+        Route::get('/create', 'locationController@create')->name('locations.create');
+        Route::post('/store', 'locationController@store')->name('locations.store');
+        Route::put('/update/{location}', 'locationController@update')->name('locations.update');
+        Route::delete('/destroy/{location}', 'LocationController@destroy')->name('locations.destroy');
+        Route::get('/edit/{location}', 'LocationController@edit')->name('locations.edit');
     });
 });

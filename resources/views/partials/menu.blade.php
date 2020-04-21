@@ -31,16 +31,26 @@
                 </li>
                 @can('user_management_access')
                     <li class="nav-item has-treeview {{ request()->is('admin/permissions*') ? 'menu-open' : '' }} {{ request()->is('admin/roles*') ? 'menu-open' : '' }} {{ request()->is('admin/users*') ? 'menu-open' : '' }}">
-                        <a class="nav-link nav-dropdown-toggle">
+                        <a class="nav-link nav-dropdown-toggle" style="cursor:pointer;">
                             <i class="fas fa-users">
 
                             </i>
                             <p>
-                                <span>{{ trans('Gestion des utilisateurs') }}</span>
+                                <span>{{ trans('Administration') }}</span>
                                 <i class="right fa fa-angle-left"></i>
                             </p>
                         </a>
                         <ul class="nav nav-treeview">
+                            <li class="nav-item">
+                                <a href="{{ route("locations.index") }}" class="nav-link {{ request()->is('admin/users') || request()->is('admin/users/*') ? 'active' : '' }}">
+                                    <i class="fas fa-cogs">
+
+                                    </i>
+                                    <p>
+                                        <span>{{ trans('location.management') }}</span>
+                                    </p>
+                                </a>
+                            </li>
                             @can('permission_access')
                                 <li class="nav-item">
                                     <a href="{{ route("admin.permissions.index") }}" class="nav-link {{ request()->is('admin/permissions') || request()->is('admin/permissions/*') ? 'active' : '' }}">
